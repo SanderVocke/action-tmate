@@ -190,6 +190,11 @@ export async function run() {
     core.debug("Creating new session")
     await execShellCommand(`${tmate} ${newSessionExtra} ${setDefaultCommand} new-session -d`);
     await execShellCommand(`${tmate} wait tmate-ready`);
+    let finishCommand = core.getInput("command-when-finished")
+    if (finishCommand.length > 0) {
+      core.info(`Running: ${finishCommand}`);
+      await execShellCommand(finishCommand);
+    }
     core.debug("Created new session successfully")
 
     core.debug("Fetching connection strings")

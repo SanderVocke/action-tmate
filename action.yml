@@ -29,6 +29,10 @@ inputs:
     description: 'How long in seconds to wait for a connection to be established'
     required: false
     default: '600'
+  command-when-finished:
+    description: 'If set, the given command is executed when the tmate session closes.'
+    required: false
+    default: ''
   tmate-server-host:
     description: 'The hostname for your tmate server (e.g. ssh.example.org)'
     required: false
