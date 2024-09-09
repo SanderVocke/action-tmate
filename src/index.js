@@ -51,9 +51,15 @@ export async function run() {
         })()
 
         let connectTimeoutSeconds = parseInt(core.getInput("connect-timeout-seconds"))
+        if (!Number.isNaN(parseInt(process.env.ACTION_TMATE_CONNECT_TIMEOUT_SECONDS))) {
+          connectTimeoutSeconds = parseInt(process.env.ACTION_TMATE_CONNECT_TIMEOUT_SECONDS)
+          core.info(`Connect timeout was overridden by env: ${connectTimeoutSeconds}`)
+        }
         if (Number.isNaN(connectTimeoutSeconds) || connectTimeoutSeconds <= 0) {
           connectTimeoutSeconds = 10 * 60
+          core.info(`Connect timeout from default: ${connectTimeoutSeconds}`)
         }
+        core.info(`Connect timeout: ${connectTimeoutSeconds}`)
 
         for (let seconds = connectTimeoutSeconds; seconds > 0; ) {
           console.log(`${
